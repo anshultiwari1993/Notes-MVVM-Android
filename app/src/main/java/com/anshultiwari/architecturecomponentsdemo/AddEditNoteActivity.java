@@ -6,10 +6,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class AddEditNoteActivity extends AppCompatActivity {
     private static final String TAG = "AddEditNoteActivity";
@@ -21,7 +22,9 @@ public class AddEditNoteActivity extends AppCompatActivity {
 
     private EditText titleEditText;
     private EditText descEditText;
-    private NumberPicker priorityNumPicker;
+    private TextView noteHeadTextView;
+    private Toolbar toolbar;
+//    private NumberPicker priorityNumPicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,22 +33,29 @@ public class AddEditNoteActivity extends AppCompatActivity {
 
         titleEditText = findViewById(R.id.title);
         descEditText = findViewById(R.id.description);
-        priorityNumPicker = findViewById(R.id.priority);
+        noteHeadTextView = findViewById(R.id.head);
+//        priorityNumPicker = findViewById(R.id.priority);
 
-        priorityNumPicker.setMinValue(1);
-        priorityNumPicker.setMaxValue(10);
+//        priorityNumPicker.setMinValue(1);
+//        priorityNumPicker.setMaxValue(10);
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setTitle("");
+
 
         Intent i = getIntent();
-
         if (i.hasExtra(ID)) {
             titleEditText.setText(i.getStringExtra(TITLE));
             descEditText.setText(i.getStringExtra(DESCRIPTION));
-            priorityNumPicker.setValue(i.getIntExtra(PRIORITY, 1));
+//            priorityNumPicker.setValue(i.getIntExtra(PRIORITY, 1));
 
-            setTitle("Edit Note");
+//            setTitle("Edit Note");
+            noteHeadTextView.setText("Edit Note");
 
         } else {
-            setTitle("Add Note");
+//            setTitle("Add Note");
+            noteHeadTextView.setText("Add Note");
         }
 
 
@@ -73,7 +83,7 @@ public class AddEditNoteActivity extends AppCompatActivity {
     private void saveNote() {
         String title = titleEditText.getText().toString().trim();
         String desc = descEditText.getText().toString().trim();
-        int priority = priorityNumPicker.getValue();
+//        int priority = priorityNumPicker.getValue();
         
         if (title.isEmpty() || desc.isEmpty()) {
             Toast.makeText(this, "Please insert a title and description", Toast.LENGTH_SHORT).show();
@@ -83,7 +93,7 @@ public class AddEditNoteActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.putExtra(TITLE, title);
         intent.putExtra(DESCRIPTION, desc);
-        intent.putExtra(PRIORITY, priority);
+//        intent.putExtra(PRIORITY, priority);
 
         int id = getIntent().getIntExtra(AddEditNoteActivity.ID, -1);
         Log.d(TAG, "saveNote: received id = " +  id);

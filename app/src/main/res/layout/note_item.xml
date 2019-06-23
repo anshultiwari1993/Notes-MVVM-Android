@@ -1,46 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/note_bg"
-    android:layout_marginTop="8dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginBottom="8dp"
-    android:padding="16dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:elevation="2dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_toStartOf="@+id/check"
-        android:layout_alignParentStart="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Buy Something"
-        android:textStyle="bold"
-        android:textSize="18sp"/>
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/desc"
-        android:layout_toStartOf="@+id/check"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Buy Something from grocery shop andsfjldkjfl dfjlskj fdlskjflksdj flkdjfslkjflksj dlkf jslkfjlkdsjlfkdsjdlk"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:textSize="14sp"/>
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="Buy Something"/>
 
-    <CheckBox
-        android:id="@+id/check"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="8dp"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"/>
-</RelativeLayout>
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="8dp"
+            android:textSize="12sp"
+            android:ellipsize="end"
+            tools:text="Buy Something from grocery shop andsfjldkjfl dfjlskj fdlskjflksdj flkdjfslkjflksj dlkf jslkfjlkdsjlfkdsjdlk"/>
+
+    </RelativeLayout>
+
+
+</android.support.constraint.ConstraintLayout>
+
 <!--<androidx.cardview.widget.CardView-->
     <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
     <!--android:layout_width="match_parent"-->

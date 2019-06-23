@@ -11,13 +11,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
         mAddNoteButton = findViewById(R.id.add_note);
 
         final RecyclerView notesRecyclerView = findViewById(R.id.notes);
-        notesRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        notesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+//        notesRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         notesRecyclerView.setHasFixedSize(true);
 
         final NotesAdapter notesAdapter = new NotesAdapter();
@@ -50,23 +49,23 @@ public class MainActivity extends AppCompatActivity {
             public void onChanged(List<Note> notes) {
                 Log.d(TAG, "onChanged: notes size = " + notes.size());
                 // Update the RecyclerView
-                notesAdapter.setNotes(notes);
+                notesAdapter.submitList(notes);
             }
         });
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                mNoteViewModel.delete(notesAdapter.getNoteAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(MainActivity.this, "Note deleted", Toast.LENGTH_SHORT).show();
-
-            }
-        }).attachToRecyclerView(notesRecyclerView);
+//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+//            @Override
+//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+//                return false;
+//            }
+//
+//            @Override
+//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+//                mNoteViewModel.delete(notesAdapter.getNoteAt(viewHolder.getAdapterPosition()));
+//                Toast.makeText(MainActivity.this, "Note deleted", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        }).attachToRecyclerView(notesRecyclerView);
 
         notesAdapter.setNoteItemClickListener(new NotesAdapter.OnNoteItemClickListener() {
             @Override
