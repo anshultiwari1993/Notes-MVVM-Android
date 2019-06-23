@@ -1,4 +1,5 @@
 package com.anshultiwari.architecturecomponentsdemo;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -53,20 +54,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-//            @Override
-//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-//                return false;
-//            }
-//
-//            @Override
-//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-//                mNoteViewModel.delete(notesAdapter.getNoteAt(viewHolder.getAdapterPosition()));
-//                Toast.makeText(MainActivity.this, "Note deleted", Toast.LENGTH_SHORT).show();
-//
-//            }
-//        }).attachToRecyclerView(notesRecyclerView);
-
         notesAdapter.setNoteItemClickListener(new NotesAdapter.OnNoteItemClickListener() {
             @Override
             public void onNoteItemClicked(Note note) {
@@ -78,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
                 i.putExtra(AddEditNoteActivity.TITLE, note.getTitle());
                 i.putExtra(AddEditNoteActivity.DESCRIPTION, note.getDescription());
-                i.putExtra(AddEditNoteActivity.PRIORITY, note.getPriority());
                 startActivityForResult(i, EDIT_NOTE_REQUEST);
             }
         });
@@ -119,9 +105,8 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK) {
             String title = data.getStringExtra(AddEditNoteActivity.TITLE);
             String desc = data.getStringExtra(AddEditNoteActivity.DESCRIPTION);
-            int priority = data.getIntExtra(AddEditNoteActivity.PRIORITY, 1);
 
-            Note note = new Note(title, desc, priority);
+            Note note = new Note(title, desc);
             mNoteViewModel.insert(note);
 
             Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
@@ -129,12 +114,10 @@ public class MainActivity extends AppCompatActivity {
         } else  if (requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) {
             String title = data.getStringExtra(AddEditNoteActivity.TITLE);
             String desc = data.getStringExtra(AddEditNoteActivity.DESCRIPTION);
-            int priority = data.getIntExtra(AddEditNoteActivity.PRIORITY, 1);
 
             int id = data.getIntExtra(AddEditNoteActivity.ID, -1);
-
             if (id != -1) {
-                Note note = new Note(title, desc, priority);
+                Note note = new Note(title, desc);
                 note.setId(id);
                 mNoteViewModel.update(note);
 

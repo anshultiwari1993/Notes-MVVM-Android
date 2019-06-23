@@ -26,6 +26,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:textSize="20sp"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textStyle="bold"
             tools:text="Buy Something"/>
 
